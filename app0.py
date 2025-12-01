@@ -158,50 +158,85 @@ def translate_text(text, src_lang, dest_lang):
         print(f"Error translating text: {e}")
         return text
 
-def query_dbpedia(search_term, lang='en'):
-    """Consulta DBpedia para información relacionada con la palabra clave"""
+def query_dbpedia(search_term, lang='es'):
+    """
+    Consulta DBpedia buscando específicamente dbo:abstract.
+    Si no hay descripción en español, trae la de inglés como respaldo.
+    """
+    
+    # Limpiamos el término de búsqueda
+    clean_term = search_term.strip().replace('"', '').replace("'", "")
+    
+    # --- CAMBIO CLAVE AQUÍ ---
+    # Usamos una consulta que permite español O inglés ('en')
     query = """
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX dbo: <http://dbpedia.org/ontology/>
     
     SELECT DISTINCT ?resource ?label ?abstract WHERE {
+        # 1. Buscar coincidencia en el nombre (Label)
         ?resource rdfs:label ?label .
-        FILTER(LANG(?label) = "%s")
-        FILTER(CONTAINS(LCASE(STR(?label)), LCASE("%s")))
+        ?label bif:contains "'%s'" .
         
+        # Filtramos para que el título coincida con el idioma buscado (o inglés por defecto)
+        FILTER(LANG(?label) = "%s" || LANG(?label) = "en")
+        
+        # 2. EXTRAER LA DESCRIPCIÓN (dbo:abstract)
+        # Aquí está el truco: Permitimos español ('es') O inglés ('en')
         OPTIONAL { 
             ?resource dbo:abstract ?abstract .
-            FILTER(LANG(?abstract) = "%s") 
+            FILTER(LANG(?abstract) = "es" || LANG(?abstract) = "en") 
         }
         
+        # Aseguramos que sea un recurso de DBpedia
         FILTER(STRSTARTS(STR(?resource), "http://dbpedia.org/resource/"))
     }
     LIMIT 5
-    """ % (lang, search_term, lang)
+    """ % (clean_term, lang)
     
     try:
+        print(f"Consultando DBpedia para: {clean_term}...")
         sparql.setQuery(query)
+        sparql.setReturnFormat(JSON)
+        sparql.setTimeout(10) # 10 segundos máximo de espera
+        
         results = sparql.query().convert()
         
         dbpedia_results = []
+        # Usamos un conjunto para evitar duplicados si DBpedia manda inglés y español a la vez
+        seen_resources = set()
+
         for result in results["results"]["bindings"]:
+            resource_uri = result["resource"]["value"]
+            
+            # Si ya procesamos este recurso, lo saltamos para no repetir tarjetas
+            if resource_uri in seen_resources:
+                continue
+            seen_resources.add(resource_uri)
+
+            # Obtener el Abstract (Descripción)
+            description = "Sin descripción disponible."
+            if "abstract" in result:
+                description = result["abstract"]["value"]
+                
+                # Opcional: Si es muy largo, lo cortamos a 300 caracteres
+                if len(description) > 300:
+                    description = description[:300] + "..."
+
             dbpedia_results.append({
-                "resource": {
-                    "value": result["resource"]["value"]
-                },
-                "label": {
-                    "value": result["label"]["value"]
-                },
-                "abstract": {
-                    "value": result.get("abstract", {}).get("value", TRANSLATIONS['no_results'][lang])
-                }
+                "resource": { "value": resource_uri },
+                "label": { "value": result["label"]["value"] },
+                "abstract": { "value": description }, # Aquí va el texto de tu imagen
+                "date": { "value": "" },
+                "author": { "value": "DBpedia" }
             })
         
         return dbpedia_results
-    except Exception as e:
-        print(f"Error al consultar DBpedia: {e}")
-        return []
 
+    except Exception as e:
+        print(f"Error en DBpedia: {e}")
+        return []
+   
 def infer_properties(subject):
     """Realiza inferencias sobre un sujeto en la ontología"""
     inferred = {}
