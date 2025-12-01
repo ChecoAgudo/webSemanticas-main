@@ -17,8 +17,8 @@ DBPEDIA_NS = Namespace("http://dbpedia.org/resource/")
 DBPEDIA_ONTOLOGY_NS = Namespace("http://dbpedia.org/ontology/")
 
 # Configurar SPARQL endpoint de DBpedia
-sparql = SPARQLWrapper("http://dbpedia.org/sparql")
-sparql.setReturnFormat(JSON)
+#sparql = SPARQLWrapper("http://dbpedia.org/sparql")
+#sparql.setReturnFormat(JSON)
 
 # Cargar la ontología
 g = Graph()
@@ -30,6 +30,17 @@ try:
     print(f"Ontología cargada correctamente con {len(g)} tripletas")
 except Exception as e:
     print(f"Error al cargar la ontología: {e}")
+
+# Cargamos la DBpedia Local en un grafo separado
+g_dbpedia = Graph()
+try:
+    if os.path.exists("dbpedia_local.ttl"):
+        g_dbpedia.parse("dbpedia_local.ttl", format="ttl")
+        print(f"✅ DBpedia LOCAL cargada: {len(g_dbpedia)} datos disponibles.")
+    else:
+        print("⚠️ ADVERTENCIA: No se encontró 'dbpedia_local.ttl'. Crea el archivo.")
+except Exception as e:
+    print(f"❌ Error cargando DBpedia Local: {e}")
 
 # Configuración de idiomas
 LANGUAGES = {
@@ -158,48 +169,74 @@ def translate_text(text, src_lang, dest_lang):
         print(f"Error translating text: {e}")
         return text
 
-def query_dbpedia(search_term, lang='en'):
-    """Consulta DBpedia para información relacionada con la palabra clave"""
+def query_dbpedia(search_term, lang='es'):
+    """
+    Busca en el archivo LOCAL (dbpedia_local.ttl) y TRADUCE automáticamente
+    los resultados al idioma seleccionado por el usuario.
+    """
+    clean_term = search_term.strip().replace('"', '').replace("'", "")
+    
+    # Consulta SPARQL interna
     query = """
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
     PREFIX dbo: <http://dbpedia.org/ontology/>
     
     SELECT DISTINCT ?resource ?label ?abstract WHERE {
         ?resource rdfs:label ?label .
-        FILTER(LANG(?label) = "%s")
-        FILTER(CONTAINS(LCASE(STR(?label)), LCASE("%s")))
         
+        # Filtro de búsqueda insensible a mayúsculas
+        FILTER regex(?label, "%s", "i")
+        
+        # Obtenemos el resumen
         OPTIONAL { 
             ?resource dbo:abstract ?abstract .
-            FILTER(LANG(?abstract) = "%s") 
         }
-        
-        FILTER(STRSTARTS(STR(?resource), "http://dbpedia.org/resource/"))
     }
     LIMIT 5
-    """ % (lang, search_term, lang)
+    """ % (clean_term)
     
     try:
-        sparql.setQuery(query)
-        results = sparql.query().convert()
+        # Ejecutamos la consulta sobre el archivo LOCAL
+        results = g_dbpedia.query(query)
         
         dbpedia_results = []
-        for result in results["results"]["bindings"]:
+        seen_resources = set()
+
+        for row in results:
+            resource_uri = str(row.resource)
+            
+            if resource_uri in seen_resources: continue
+            seen_resources.add(resource_uri)
+
+            # 1. Obtenemos el texto original del archivo TTL (que seguramente está en español)
+            raw_label = str(row.label) if row.label else "Sin título"
+            raw_abstract = str(row.abstract) if row.abstract else "Sin descripción disponible."
+            
+            # Recortar texto si es muy largo antes de traducir (ahorra tiempo)
+            if len(raw_abstract) > 300: raw_abstract = raw_abstract[:300] + "..."
+
+            # --- AQUÍ ESTÁ LA MAGIA: TRADUCCIÓN AUTOMÁTICA ---
+            # Usamos tu función 'translate_text' para convertirlo del español ('es') al idioma deseado (lang)
+            # Nota: Asumimos que tu archivo dbpedia_local.ttl está escrito en español ('es')
+            
+            label_traducido = translate_text(raw_label, 'es', lang)
+            abstract_traducido = translate_text(raw_abstract, 'es', lang)
+
+            # ---------------------------------------------------
+
+            # Armamos la respuesta con los textos YA TRADUCIDOS
             dbpedia_results.append({
-                "resource": {
-                    "value": result["resource"]["value"]
-                },
-                "label": {
-                    "value": result["label"]["value"]
-                },
-                "abstract": {
-                    "value": result.get("abstract", {}).get("value", TRANSLATIONS['no_results'][lang])
-                }
+                "resource": { "value": resource_uri },
+                "label": { "value": label_traducido },     # <--- Usamos el traducido
+                "abstract": { "value": abstract_traducido }, # <--- Usamos el traducido
+                "date": { "value": "" },
+                "author": { "value": "DBpedia Local" }
             })
         
         return dbpedia_results
+
     except Exception as e:
-        print(f"Error al consultar DBpedia: {e}")
+        print(f"Error en búsqueda local: {e}")
         return []
 
 def infer_properties(subject):
