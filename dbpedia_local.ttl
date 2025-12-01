@@ -1,0 +1,47 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix dbr: <http://dbpedia.org/resource/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# --- PERSONAJES ---
+
+dbr:Lionel_Messi
+    a dbo:Person ;
+    rdfs:label "Lionel Messi"@es, "Lionel Messi"@en, "Lionel Messi"@pt ;
+    dbo:abstract "Lionel Andrés Messi Cuccittini es un futbolista argentino que juega como delantero o centrocampista. Es considerado uno de los mejores jugadores de todos los tiempos."@es ;
+    dbo:birthDate "1987-06-24"^^xsd:date .
+
+dbr:Evo_Morales
+    a dbo:Person ;
+    rdfs:label "Evo Morales"@es ;
+    dbo:abstract "Juan Evo Morales Ayma es un político, sindicalista y activista boliviano de ascendencia aymara, quien ejerció como presidente del Estado Plurinacional de Bolivia."@es .
+
+# --- LUGARES ---
+
+dbr:Bolivia
+    a dbo:Country ;
+    rdfs:label "Bolivia"@es, "Bolivia"@en ;
+    dbo:abstract "Bolivia, oficialmente Estado Plurinacional de Bolivia, es un país soberano situado en la región centro-occidental de América del Sur. Limita al norte y al este con Brasil."@es .
+
+dbr:Cochabamba
+    a dbo:Place ;
+    rdfs:label "Cochabamba"@es ;
+    dbo:abstract "Cochabamba es una ciudad boliviana, capital del departamento homónimo y de la provincia de Cercado. Es conocida como la ciudad de la eterna primavera."@es .
+
+# --- TEMAS GENERALES ---
+
+dbr:Inteligencia_artificial
+    a dbo:Concept ;
+    rdfs:label "Inteligencia artificial"@es ;
+    dbo:abstract "La inteligencia artificial (IA) es la inteligencia llevada a cabo por máquinas. En ciencias de la computación, una máquina «inteligente» ideal es un agente flexible que percibe su entorno y lleva a cabo acciones que maximicen sus posibilidades de éxito."@es .
+
+dbr:Cambio_climatico
+    a dbo:Concept ;
+    rdfs:label "Cambio climático"@es ;
+    dbo:abstract "El cambio climático hace referencia a los cambios a largo plazo de las temperaturas y los patrones climáticos. Estos cambios pueden ser naturales, pero desde el siglo XIX, las actividades humanas han sido el principal motor."@es .
+
+dbr:Elecciones
+    a dbo:Event ;
+    rdfs:label "Elecciones"@es ;
+    dbo:abstract "Las elecciones son un proceso de toma de decisiones en el que el electorado elige individuos para ocupar cargos públicos."@es .
