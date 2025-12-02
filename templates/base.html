@@ -164,55 +164,150 @@
         font-size: 0.8rem;
         margin-left: 5px;
       }
-      /* --- NUEVO COLOR PARA EL BOTÓN BUSCAR --- */
-      .btn-primary {
-        /* Cambia el código HEX #0C1A1A por el color que desees */
-        background-color: #159696 !important; 
-        border-color: #159696 !important;
-        color: #ffffff !important; /* Color del texto */
-      }
-
-      /* Color cuando pasas el mouse por encima (Hover) */
-      .btn-primary:hover {
-        /* Un tono ligeramente diferente para el efecto */
-        background-color: #29d1d1 !important; 
-        border-color: #29d1d1 !important;
-      }
-
-      /* Estilo personalizado para el botón VOLVER */
-      .btn-secondary {
-        /* CAMBIA ESTE CÓDIGO POR EL COLOR QUE QUIERAS */
-        background-color: #159696 !important; /* Ejemplo: Rojo oscuro */
+            /* ================================================ */
+      /*                COLORES DE BOTONES                */
+      /* ================================================ */
+      
+      /* --- TODOS LOS BOTONES PRINCIPALES --- */
+      .btn-primary,
+      .btn-secondary,
+      .btn-success,
+      .btn-info,
+      .btn-warning,
+      .btn-danger {
+        background-color: #159696 !important;
         border-color: #159696 !important;
         color: #ffffff !important;
       }
-      
-      .btn-secondary:hover {
-        background-color: #29d1d1 !important; /* Color al pasar el mouse */
+
+      .btn-primary:hover,
+      .btn-secondary:hover,
+      .btn-success:hover,
+      .btn-info:hover,
+      .btn-warning:hover,
+      .btn-danger:hover {
+        background-color: #29d1d1 !important;
+        border-color: #29d1d1 !important;
+        color: #ffffff !important;
+      }
+
+      /* --- TODOS LOS BOTONES OUTLINE (CONTORNOS) --- */
+      .btn-outline-primary,
+      .btn-outline-secondary,
+      .btn-outline-success,
+      .btn-outline-info,
+      .btn-outline-warning,
+      .btn-outline-danger {
+        color: #159696 !important;
+        border-color: #159696 !important;
+        background-color: transparent !important;
+      }
+
+      .btn-outline-primary:hover,
+      .btn-outline-secondary:hover,
+      .btn-outline-success:hover,
+      .btn-outline-info:hover,
+      .btn-outline-warning:hover,
+      .btn-outline-danger:hover {
+        background-color: #29d1d1 !important;
+        border-color: #29d1d1 !important;
+        color: #ffffff !important;
+      }
+
+      /* --- BADGES (ETIQUETAS) --- */
+      .badge.bg-primary,
+      .badge.bg-secondary,
+      .badge.bg-success,
+      .badge.bg-info,
+      .badge.bg-warning,
+      .badge.bg-danger {
+        background-color: #159696 !important;
+        color: white !important;
+      }
+
+      /* --- ENCABEZADOS DE TARJETAS --- */
+      .card-header.bg-primary,
+      .card-header.bg-success,
+      .card-header.bg-info,
+      .card-header.bg-warning,
+      .card-header.bg-danger {
+        background-color: #159696 !important;
+        color: white !important;
+      }
+
+      /* --- ALERTS --- */
+      .alert-info,
+      .alert-success,
+      .alert-warning {
+        background-color: rgba(21, 150, 150, 0.1) !important;
+        border-color: #159696 !important;
+        color: #159696 !important;
+      }
+
+      .alert-info .bi,
+      .alert-success .bi,
+      .alert-warning .bi {
+        color: #159696 !important;
+      }
+
+      /* --- PROGRESS BARS --- */
+      .progress-bar {
+        background-color: #159696 !important;
+      }
+
+      /* --- ENLACES --- */
+      a {
+        color: #159696;
+      }
+
+      a:hover {
+        color: #29d1d1;
+      }
+
+      /* --- BOTONES ESPECIALES PARA DBPEDIA --- */
+      /* Elimina cualquier estilo específico anterior */
+      .card-header[style*="background:"] {
+        background: linear-gradient(135deg, #159696 0%, #117a7a 100%) !important;
+        color: white !important;
+      }
+
+      /* --- COLOR DE VERIFICACIÓN --- */
+      .verified {
+        color: #159696 !important;
+      }
+
+      /* --- COLOR DE ÍCONOS --- */
+      .bi-eye.text-primary,
+      .text-primary {
+        color: #159696 !important;
+      }
+
+      /* --- TABLAS --- */
+      .table-dark {
+        background-color: #159696 !important;
+        color: white !important;
+      }
+
+      /* --- DARK MODE ADAPTACIONES --- */
+      [data-bs-theme="dark"] .btn-outline-primary,
+      [data-bs-theme="dark"] .btn-outline-secondary,
+      [data-bs-theme="dark"] .btn-outline-info,
+      [data-bs-theme="dark"] .btn-outline-success,
+      [data-bs-theme="dark"] .btn-outline-warning,
+      [data-bs-theme="dark"] .btn-outline-danger {
+        color: #29d1d1 !important;
         border-color: #29d1d1 !important;
       }
-      /* 1. MODIFICAR BOTÓN "VER EN DBPEDIA" (btn-outline-primary) */
-      /* Lo pondremos Verde Azulado para que resalte */
-      .btn-outline-primary {
-        color: #159696 !important;
-        border-color: #159696 !important;
-      }
 
-      .btn-outline-primary:hover {
-        background-color: #159696 !important;
-        color: #ffffff !important; /* Texto blanco al pasar el mouse */
-      }
-
-      /* 2. MODIFICAR BOTÓN "VER DETALLES" (btn-outline-secondary) */
-      /* Lo pondremos Negro/Oscuro para que combine con el botón Buscar */
-      .btn-outline-secondary {
-        color: #159696 !important;
-        border-color: #159696 !important;
-      }
-
-      .btn-outline-secondary:hover {
-        background-color: #159696 !important;
-        color: #ffffff !important; /* Texto blanco al pasar el mouse */
+      [data-bs-theme="dark"] .btn-outline-primary:hover,
+      [data-bs-theme="dark"] .btn-outline-secondary:hover,
+      [data-bs-theme="dark"] .btn-outline-info:hover,
+      [data-bs-theme="dark"] .btn-outline-success:hover,
+      [data-bs-theme="dark"] .btn-outline-warning:hover,
+      [data-bs-theme="dark"] .btn-outline-danger:hover {
+        background-color: #29d1d1 !important;
+        border-color: #29d1d1 !important;
+        color: #121212 !important;
       }
     </style>
     <meta name="description" content="Buscador inteligente de noticias que combina datos locales con DBpedia">
