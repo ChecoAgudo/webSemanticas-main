@@ -24,8 +24,8 @@
             <h5 class="mb-1">{{ item.titulo }}</h5>
             <small class="text-muted">{{ item.fecha }}</small>
           </div>
-          <p class="mb-1">Autor: {{ item.autor }}</p>
-          <small>Haz clic para ver detalles completos</small>
+        <p class="mb-1">{{ translations['author'][current_lang] }}: {{ item.autor }}</p>
+        <small>{{ translations['haz_clic_para_ver_detalles'][current_lang] }}</small>
         </a>
         {% endfor %}
       </div>
