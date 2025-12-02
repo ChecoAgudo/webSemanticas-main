@@ -89,7 +89,7 @@ LANGUAGES = {
 TRANSLATIONS = {
     'search_placeholder': {'es': 'Buscar noticias...', 'en': 'Search news...', 'pt': 'Pesquisar notícias...'},
     'search_button': {'es': 'Buscar', 'en': 'Search', 'pt': 'Pesquisar'},
-    'title': {'es': 'Buscador de Noticias Inteligente', 'en': 'Intelligent News Search', 'pt': 'Pesquisa Inteligente de Notícias'},
+    'title': {'es': 'Buscador de Noticias', 'en': 'News Search Engine', 'pt': 'Mecanismo de busca de notícias'},
     'no_results': {'es': 'No se encontraron noticias para', 'en': 'No news found for', 'pt': 'Nenhuma notícia encontrada para'},
     'results_for': {'es': 'Resultados para', 'en': 'Results for', 'pt': 'Resultados para'},
     'date': {'es': 'Fecha', 'en': 'Date', 'pt': 'Data'},
@@ -120,26 +120,70 @@ TRANSLATIONS = {
     'structure': {'es': 'Estructura', 'en': 'Structure', 'pt': 'Estrutura'},
     'diffusion': {'es': 'Difusión', 'en': 'Diffusion', 'pt': 'Difusão'},
     'authorship': {'es': 'Autoría', 'en': 'Authorship', 'pt': 'Autoria'},
-    'view_details': {
-        'es': 'Ver detalles',
-        'en': 'View details',
-        'pt': 'Ver detalhes'
+    'view_details': {'es': 'Ver detalles','en': 'View details','pt': 'Ver detalhes'},
+    'view_on_dbpedia': {'es': 'Ver en DBpedia','en': 'View on DBpedia','pt': 'Ver no DBpedia'},
+    'dbpedia_results': {'es': 'Resultados de DBpedia','en': 'DBpedia Results','pt': 'Resultados do DBpedia'},
+    'type': {'es': 'Tipo','en': 'Type','pt': 'Tipo'},
+    'descripcion': {'es': 'Tipo','en': 'Type','pt': 'Tipo'},
+    'meta_description': {
+        'es': 'Buscador inteligente de noticias que combina datos locales con DBpedia',
+        'en': 'Intelligent news search engine combining local data with DBpedia',
+        'pt': 'Mecanismo de busca inteligente de notícias que combina dados locais com DBpedia'
     },
-    'view_on_dbpedia': {
-        'es': 'Ver en DBpedia',
-        'en': 'View on DBpedia',
-        'pt': 'Ver no DBpedia'
+    
+    'meta_keywords': {
+        'es': 'noticias, buscador, DBpedia, ontología, inteligencia artificial, búsqueda semántica',
+        'en': 'news, search engine, DBpedia, ontology, artificial intelligence, semantic search',
+        'pt': 'notícias, mecanismo de busca, DBpedia, ontologia, inteligência artificial, busca semântica'
     },
-    'dbpedia_results': {
-        'es': 'Resultados de DBpedia',
-        'en': 'DBpedia Results',
-        'pt': 'Resultados do DBpedia'
+    
+    'recursos_relacionados': {
+        'es': 'Recursos Relacionados en DBpedia',
+        'en': 'Related Resources in DBpedia',
+        'pt': 'Recursos Relacionados no DBpedia'
     },
-    'type': {
-        'es': 'Tipo',
-        'en': 'Type',
-        'pt': 'Tipo'
+    
+    'recurso_relacionado': {
+        'es': 'Recurso relacionado encontrado en DBpedia',
+        'en': 'Related resource found in DBpedia',
+        'pt': 'Recurso relacionado encontrado no DBpedia'
     },
+    
+    'buscar_en_dbpedia_externa': {
+        'es': 'Buscar en DBpedia Externa',
+        'en': 'Search in External DBpedia',
+        'pt': 'Pesquisar no DBpedia Externa'
+    },
+    
+    'buscar_en_dbpedia_desc': {
+        'es': 'Esta noticia podría tener información relacionada en DBpedia.org',
+        'en': 'This news might have related information in DBpedia.org',
+        'pt': 'Esta notícia pode ter informações relacionadas no DBpedia.org'
+    },
+    
+    'enlace_directo_dbpedia': {
+        'es': 'Enlace directo a DBpedia',
+        'en': 'Direct link to DBpedia',
+        'pt': 'Link direto para o DBpedia'
+    },
+    
+    'enlace_directo_dbpedia_desc': {
+        'es': 'Este es un recurso directamente de DBpedia:',
+        'en': 'This is a resource directly from DBpedia:',
+        'pt': 'Este é um recurso diretamente do DBpedia:'
+    },
+    
+    'haz_clic_para_ver_detalles': {
+        'es': 'Haz clic para ver detalles completos',
+        'en': 'Click to view full details',
+        'pt': 'Clique para ver detalhes completos'
+    },
+    
+    'fuente': {
+        'es': 'Fuente',
+        'en': 'Source',
+        'pt': 'Fonte'
+    }
 }
 
 def translate_text(text, src_lang, dest_lang):
