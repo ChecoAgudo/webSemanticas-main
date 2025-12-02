@@ -1,0 +1,24 @@
+{
+  "total_noticias": 1000,
+  "tematicas_distribucion": {
+    "Salud": 106,
+    "Política": 90,
+    "Economía": 108,
+    "Deportes": 113,
+    "Cultura": 121,
+    "Tecnología": 120,
+    "Medio ambiente": 101,
+    "Educación": 61,
+    "Internacional": 69,
+    "Social": 121,
+    "Ciencia": 82,
+    "Turismo": 128,
+    "Negocios": 116,
+    "Entretenimiento": 90,
+    "Sociedad": 136
+  },
+  "fecha_generacion": "2025-12-02 12:43:21",
+  "autor": "Sistema Generador de Noticias",
+  "version": "1.0",
+  "descripcion": "Dataset de 1000 noticias con propiedades detalladas para pruebas de ontología"
+}

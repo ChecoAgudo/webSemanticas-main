@@ -1,63 +1,198 @@
-{% extends "base.html" %} {% block title %}{{
-translations['news_details'][current_lang] }}{% endblock %} {% block content %}
+{% extends "base.html" %} 
+
+{% block title %}{{ translations['news_details'][current_lang] }}{% endblock %} 
+
+{% block content %}
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-lg-10">
-      <a
-        href="{{ url_for('search', lang=current_lang, keyword=keyword) }}"
-        class="btn btn-secondary mb-3"
-      >
-        <i class="bi bi-arrow-left"></i> {{ translations['back'][current_lang]
-        }}
+    <div class="col-lg-12">
+      <!-- Botón Volver -->
+      <a href="{{ url_for('search', lang=current_lang, keyword=keyword) }}" class="btn btn-secondary mb-4">
+        <i class="bi bi-arrow-left"></i> {{ translations['back'][current_lang] }}
       </a>
 
-      <h3 class="mb-4">{{ translations['news_details'][current_lang] }}</h3>
+      <!-- Título Principal -->
+      <h1 class="mb-4">{{ translations['news_details'][current_lang] }}</h1>
+      
+      <!-- Indicador de tipo -->
+      <div class="alert alert-info d-flex align-items-center mb-4">
+        <i class="bi bi-info-circle me-2"></i>
+        {% if is_dbpedia %}
+          <span>{{ translations['dbpedia_results'][current_lang] }}</span>
+        {% else %}
+          <span>{{ translations['local_results'][current_lang] }}</span>
+        {% endif %}
+      </div>
 
+      <!-- Tarjeta Principal de Propiedades -->
       <div class="card mb-4">
-        <div class="card-header">
-          <h4>Propiedades</h4>
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">
+            <i class="bi bi-card-list"></i> {{ translations['properties'][current_lang] }}
+          </h4>
         </div>
         <div class="card-body">
-          <table class="table table-custom table-bordered">
-            <tbody>
-              {% for key, value in noticia.items() %}
-              <tr>
-                <th>{{ key }}</th>
-                <td>
-                  {% if "http" in value %}
-                  <a href="{{ value }}" target="_blank">{{ value }}</a>
-                  {% else %} {{ value }} {% endif %}
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table class="table table-custom table-bordered table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th width="25%">{{ translations['properties'][current_lang] }}</th>
+                  <th width="75%">{{ translations['content'][current_lang] }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for key, value in noticia.items() %}
+                <tr>
+                  <td class="fw-bold">
+                    {% if key == 'Título' or key == 'title' %}
+                      <i class="bi bi-type me-2"></i>
+                    {% elif key == 'Autor' or key == 'author' %}
+                      <i class="bi bi-person me-2"></i>
+                    {% elif key == 'Fecha_publicacion' or key == 'date' %}
+                      <i class="bi bi-calendar me-2"></i>
+                    {% elif key == 'Tematica' or key == 'topic' %}
+                      <i class="bi bi-tag me-2"></i>
+                    {% elif key == 'Ubicacion' or key == 'location' %}
+                      <i class="bi bi-geo-alt me-2"></i>
+                    {% elif key == 'Idioma' or key == 'language' %}
+                      <i class="bi bi-translate me-2"></i>
+                    {% elif key == 'type' %}
+                      <i class="bi bi-diagram-3 me-2"></i>
+                    {% else %}
+                      <i class="bi bi-info-circle me-2"></i>
+                    {% endif %}
+                    {{ key }}
+                  </td>
+                  <td>
+                    {% if "http" in value and not value.startswith('http://www.semanticweb.org/cabez') %}
+                      {% if "dbpedia.org" in value %}
+                        <a href="{{ value }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                          <i class="bi bi-box-arrow-up-right"></i> {{ translations['view_on_dbpedia'][current_lang] }}
+                        </a>
+                      {% else %}
+                        <a href="{{ value }}" target="_blank" class="text-decoration-underline">{{ value }}</a>
+                      {% endif %}
+                    {% elif key == 'Multimedia_asociado' or key == 'Uso_citas' %}
+                      {% if value == 'true' %}
+                        <span class="badge bg-success">Sí</span>
+                      {% else %}
+                        <span class="badge bg-secondary">No</span>
+                      {% endif %}
+                    {% elif key == 'Enfoque_politico' %}
+                      {% if value == 'Neutral' %}
+                        <span class="badge bg-info">Neutral</span>
+                      {% elif value == 'Progubernamental' %}
+                        <span class="badge bg-primary">Progubernamental</span>
+                      {% elif value == 'Opositor' %}
+                        <span class="badge bg-warning">Opositor</span>
+                      {% else %}
+                        {{ value }}
+                      {% endif %}
+                    {% elif key == 'Tono' %}
+                      <span class="badge bg-secondary">{{ value }}</span>
+                    {% elif key == 'Estructura' %}
+                      <span class="badge bg-dark">{{ value }}</span>
+                    {% elif key == 'Cantidad_difusion' %}
+                      <div class="d-flex align-items-center">
+                        <span class="me-2">{{ value }}</span>
+                        <i class="bi bi-eye text-primary"></i>
+                      </div>
+                    {% else %}
+                      {{ value }}
+                    {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
-      {% if inferred %}
-      <div class="card">
-        <div class="card-header">
-          <h4>{{ translations['inferred_results'][current_lang] }}</h4>
+      <!-- Recursos relacionados en DBpedia -->
+      {% if recursos_relacionados %}
+      <div class="card mb-4">
+        <div class="card-header bg-warning">
+          <h4 class="mb-0">
+            <i class="bi bi-link-45deg"></i> Recursos Relacionados en DBpedia
+          </h4>
         </div>
         <div class="card-body">
-          <h5>Clases inferidas:</h5>
-          <ul>
-            {% for class in inferred.classes %}
-            <li>{{ class }}</li>
+          <div class="row">
+            {% for recurso in recursos_relacionados %}
+            <div class="col-md-6 mb-3">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h5 class="card-title">{{ recurso.label }}</h5>
+                  <p class="card-text text-muted small">Recurso relacionado encontrado en DBpedia</p>
+                </div>
+                <div class="card-footer">
+                  <a href="{{ url_for('detalle_noticia', uri=recurso.uri, lang=current_lang) }}" class="btn btn-sm btn-outline-primary">
+                    Ver detalles
+                  </a>
+                  <a href="{{ recurso.uri }}" target="_blank" class="btn btn-sm btn-outline-secondary ms-2">
+                    <i class="bi bi-box-arrow-up-right"></i> DBpedia
+                  </a>
+                </div>
+              </div>
+            </div>
             {% endfor %}
-          </ul>
+          </div>
+        </div>
+      </div>
+      {% endif %}
 
-          <h5>Propiedades posibles:</h5>
-          <ul>
-            {% for prop in inferred.possible_properties %}
-            <li>{{ prop }}</li>
-            {% endfor %}
-          </ul>
+      <!-- Botón para ver en DBpedia original -->
+      {% if not is_dbpedia and 'Título' in noticia %}
+      <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+          <h5 class="mb-0">
+            <i class="bi bi-globe"></i> Buscar en DBpedia Externa
+          </h5>
+        </div>
+        <div class="card-body">
+          <p>Esta noticia podría tener información relacionada en DBpedia.org</p>
+          {% set titulo_busqueda = noticia['Título'] if 'Título' in noticia else noticia['title'] %}
+          <a href="https://es.dbpedia.org/search?query={{ titulo_busqueda|urlencode }}" 
+             target="_blank" 
+             class="btn btn-success">
+            <i class="bi bi-search"></i> Buscar "{{ titulo_busqueda }}" en DBpedia
+          </a>
+        </div>
+      </div>
+      {% elif is_dbpedia %}
+      <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+          <h5 class="mb-0">
+            <i class="bi bi-globe"></i> Enlace directo a DBpedia
+          </h5>
+        </div>
+        <div class="card-body">
+          <p>Este es un recurso directamente de DBpedia:</p>
+          <a href="{{ uri }}" target="_blank" class="btn btn-success">
+            <i class="bi bi-box-arrow-up-right"></i> Abrir en DBpedia.org
+          </a>
         </div>
       </div>
       {% endif %}
     </div>
   </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Resaltar propiedades importantes
+  document.addEventListener('DOMContentLoaded', function() {
+    const importantProps = ['Título', 'Autor', 'Fecha_publicacion', 'Tematica'];
+    const rows = document.querySelectorAll('table tbody tr');
+    
+    rows.forEach(row => {
+      const propName = row.querySelector('td:first-child').textContent.trim();
+      if (importantProps.includes(propName)) {
+        row.style.backgroundColor = 'rgba(21, 150, 150, 0.1)';
+      }
+    });
+  });
+</script>
 {% endblock %}

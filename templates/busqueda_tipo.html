@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}{{ tipo }} - {{ translations['title'][current_lang] }}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <a href="{{ url_for('search', lang=current_lang) }}" class="btn btn-secondary mb-3">
+        <i class="bi bi-arrow-left"></i> {{ translations['back'][current_lang] }}
+      </a>
+
+      <h3 class="mb-4">
+        <i class="bi bi-filter"></i> {{ tipo }}s
+        <span class="badge bg-primary">{{ resultados|length }}</span>
+      </h3>
+
+      {% if resultados %}
+      <div class="list-group">
+        {% for item in resultados %}
+        <a href="{{ url_for('detalle_noticia', uri=item.uri, lang=current_lang) }}" 
+           class="list-group-item list-group-item-action">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{ item.titulo }}</h5>
+            <small class="text-muted">{{ item.fecha }}</small>
+          </div>
+          <p class="mb-1">Autor: {{ item.autor }}</p>
+          <small>Haz clic para ver detalles completos</small>
+        </a>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="alert alert-info">
+        <i class="bi bi-info-circle"></i> No se encontraron {{ tipo|lower }}s.
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
