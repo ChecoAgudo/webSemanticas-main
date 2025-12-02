@@ -125,6 +125,11 @@ TRANSLATIONS = {
     'dbpedia_results': {'es': 'Resultados de DBpedia','en': 'DBpedia Results','pt': 'Resultados do DBpedia'},
     'type': {'es': 'Tipo','en': 'Type','pt': 'Tipo'},
     'descripcion': {'es': 'Tipo','en': 'Type','pt': 'Tipo'},
+    'filter_by_type': {'es': 'Filtrar por tipo', 'en': 'Filter by type', 'pt': 'Filtrar por tipo'},
+    'columns': {'es': 'Columnas', 'en': 'Columns', 'pt': 'Colunas'},
+    'reports': {'es': 'Reportajes', 'en': 'Reports', 'pt': 'Reportagens'},
+    'news': {'es': 'Noticias', 'en': 'News', 'pt': 'Notícias'},
+    'editorials': {'es': 'Editoriales', 'en': 'Editorials', 'pt': 'Editoriais'},
     'meta_description': {
         'es': 'Buscador inteligente de noticias que combina datos locales con DBpedia',
         'en': 'Intelligent news search engine combining local data with DBpedia',
@@ -183,7 +188,19 @@ TRANSLATIONS = {
         'es': 'Fuente',
         'en': 'Source',
         'pt': 'Fonte'
-    }
+    },
+
+    'no_se_encontraron': {
+        'es': 'No se encontraron',
+        'en': 'No',
+        'pt': 'Não foram encontrados'
+    },
+    
+    'ver': {
+        'es': 'Ver',
+        'en': 'View',
+        'pt': 'Ver'
+    },
 }
 
 def translate_text(text, src_lang, dest_lang):
