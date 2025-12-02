@@ -112,9 +112,9 @@
       <!-- Recursos relacionados en DBpedia -->
       {% if recursos_relacionados %}
       <div class="card mb-4">
-        <div class="card-header bg-warning">
+        <div class="card-header bg-primary">
           <h4 class="mb-0">
-            <i class="bi bi-link-45deg"></i> Recursos Relacionados en DBpedia
+            <i class="bi bi-link-45deg"></i> {{ translations['recursos_relacionados'][current_lang] }}
           </h4>
         </div>
         <div class="card-body">
@@ -124,14 +124,14 @@
               <div class="card h-100">
                 <div class="card-body">
                   <h5 class="card-title">{{ recurso.label }}</h5>
-                  <p class="card-text text-muted small">Recurso relacionado encontrado en DBpedia</p>
+                  <p class="card-text text-muted small">{{ translations['recurso_relacionado'][current_lang] }}</p>
                 </div>
                 <div class="card-footer">
                   <a href="{{ url_for('detalle_noticia', uri=recurso.uri, lang=current_lang) }}" class="btn btn-sm btn-outline-primary">
-                    Ver detalles
+                    {{ translations['view_details'][current_lang] }}
                   </a>
-                  <a href="{{ recurso.uri }}" target="_blank" class="btn btn-sm btn-outline-secondary ms-2">
-                    <i class="bi bi-box-arrow-up-right"></i> DBpedia
+                  <a href="{{ recurso.uri }}" target="_blank" class="btn btn-sm btn-outline-primary ms-2">
+                    <i class="bi bi-box-arrow-up-right"></i> {{ translations['view_on_dbpedia'][current_lang] }}
                   </a>
                 </div>
               </div>
@@ -145,32 +145,32 @@
       <!-- Botón para ver en DBpedia original -->
       {% if not is_dbpedia and 'Título' in noticia %}
       <div class="card mb-4">
-        <div class="card-header bg-success text-white">
+        <div class="card-header bg-primary">
           <h5 class="mb-0">
-            <i class="bi bi-globe"></i> Buscar en DBpedia Externa
+            <i class="bi bi-globe"></i> {{ translations['buscar_en_dbpedia_externa'][current_lang] }}
           </h5>
         </div>
         <div class="card-body">
-          <p>Esta noticia podría tener información relacionada en DBpedia.org</p>
+          <p>{{ translations['buscar_en_dbpedia_desc'][current_lang] }}</p>
           {% set titulo_busqueda = noticia['Título'] if 'Título' in noticia else noticia['title'] %}
           <a href="https://es.dbpedia.org/search?query={{ titulo_busqueda|urlencode }}" 
              target="_blank" 
-             class="btn btn-success">
-            <i class="bi bi-search"></i> Buscar "{{ titulo_busqueda }}" en DBpedia
+             class="btn btn-primary">
+            <i class="bi bi-search"></i> {{ translations['search_button'][current_lang] }} "{{ titulo_busqueda }}" {{ translations['view_on_dbpedia'][current_lang] }}
           </a>
         </div>
       </div>
       {% elif is_dbpedia %}
       <div class="card mb-4">
-        <div class="card-header bg-success text-white">
+        <div class="card-header bg-primary">
           <h5 class="mb-0">
-            <i class="bi bi-globe"></i> Enlace directo a DBpedia
+            <i class="bi bi-globe"></i> {{ translations['enlace_directo_dbpedia'][current_lang] }}
           </h5>
         </div>
         <div class="card-body">
-          <p>Este es un recurso directamente de DBpedia:</p>
-          <a href="{{ uri }}" target="_blank" class="btn btn-success">
-            <i class="bi bi-box-arrow-up-right"></i> Abrir en DBpedia.org
+          <p>{{ translations['enlace_directo_dbpedia_desc'][current_lang] }}</p>
+          <a href="{{ uri }}" target="_blank" class="btn btn-primary">
+            <i class="bi bi-box-arrow-up-right"></i> {{ translations['view_on_dbpedia'][current_lang] }}.org
           </a>
         </div>
       </div>
