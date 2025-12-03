@@ -21067,5 +21067,22 @@ dbr:Noticia_1000
     untitled-ontology-3:tiene untitled-ontology-3:Audio_17 ;
     .
 
+dbr:Noticia_1001
+    a untitled-ontology-3:Noticia ;
+    rdfs:label "Amazon lanza su propio chip de IA y calienta la competencia de las grandes tecnológicas con Nvidia"@es ;
+    dbo:abstract "La empresa, que se une a Alphabet en el lanzamiento de chips, cree que puede competir con equipos personalizados mas baratos."@es ;
+    untitled-ontology-3:Autor "Santiago Millán" ;
+    untitled-ontology-3:Autoria "El Pais" ;
+    untitled-ontology-3:Cantidad_difusion "267809" ;
+    untitled-ontology-3:Estructura "Expositiva" ;
+    untitled-ontology-3:Fecha_publicacion "2025-12-02"^^xsd:date ;
+    untitled-ontology-3:Idioma "Español" ;
+    untitled-ontology-3:Multimedia_asociado "false" ;
+    untitled-ontology-3:Tematica "Tecnologia" ;
+    untitled-ontology-3:Titulo "Inteligencia artificial en Amazon" ;
+    untitled-ontology-3:Ubicacion "Madrid, España" ;
+    untitled-ontology-3:Uso_citas "true" ;
+    untitled-ontology-3:tiene untitled-ontology-3:Audio_17 ;
+
 # ----- Bloque de noticias 901-1000 -----
 
