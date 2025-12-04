@@ -129,75 +129,85 @@
         {% endif %}
 
         <!-- Resultados DBpedia -->
-                <!-- Resultados DBpedia -->
-        <div class="result-section">
-          <h3 class="section-title d-flex align-items-center">
-            <i class="bi bi-globe me-2"></i> 
-            {{ translations['dbpedia_results'][current_lang] }}
-            <span class="badge bg-success ms-2">{{ dbpedia_results|length }}</span>
-          </h3>
-          
-          {% if dbpedia_results %}
-          <div class="row row-cols-1 g-4">
-            {% for item in dbpedia_results %}
-            <div class="col">
-              <div class="card h-100 shadow-sm">
-                <div class="card-header bg-info text-white d-flex justify-content-between">
-                  <!-- Mostrar solo el nombre del tipo sin el namespace -->
-                  {% if item.type %}
-                    {% set tipo_parts = item.type.split('#') %}
-                    {% if tipo_parts|length > 1 %}
-                      <span class="badge bg-light text-dark">{{ tipo_parts[-1] }}</span>
-                    {% else %}
-                      <span class="badge bg-light text-dark">{{ item.type }}</span>
-                    {% endif %}
-                  {% else %}
-                    <span class="badge bg-light text-dark">Recurso</span>
-                  {% endif %}
-                  <span class="fw-bold">DBpedia</span>
-                </div>
-                
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="{{ url_for('detalle_noticia', uri=item.resource.value, lang=current_lang, keyword=keyword) }}"
-                       class="text-decoration-none">
-                      {{ item.label.value }}
-                    </a>
-                  </h4>
-                  
-                  <p class="card-text">{{ item.abstract.value }}</p>
-                  
-                  <div class="d-flex justify-content-between align-items-center mt-3">
-                    <div>
-                      <span class="text-muted-custom small">
-                        <i class="bi bi-database"></i> Fuente: DBpedia
-                      </span>
-                    </div>
-                    
-                    <div>
-                      <a href="{{ url_for('detalle_noticia', uri=item.resource.value, lang=current_lang, keyword=keyword) }}"
-                         class="btn btn-sm btn-outline-primary me-2">
-                        <i class="bi bi-info-circle"></i> {{ translations['view_details'][current_lang] }}
-                      </a>
-                      <a href="{{ item.resource.value }}" 
-                         target="_blank"
-                         class="btn btn-sm btn-outline-primary">
-                        <i class="bi bi-box-arrow-up-right"></i> {{ translations['view_on_dbpedia'][current_lang] }}
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {% endfor %}
+<div class="result-section">
+  <h3 class="section-title d-flex align-items-center">
+    <i class="bi bi-globe me-2"></i> 
+    {{ translations['dbpedia_results'][current_lang] }}
+    <span class="badge bg-success ms-2">{{ dbpedia_results|length }}</span>
+  </h3>
+  
+  {% if dbpedia_results %}
+  <div class="row row-cols-1 g-4">
+    {% for item in dbpedia_results %}
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <!-- PARTE MODIFICADA: Maneja mejor los tipos -->
+        <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+          <div>
+            <!-- Si tenemos tipos adicionales almacenados -->
+            {% if item.get('all_types') and item.all_types|length > 1 %}
+              <!-- Mostrar el primer tipo como badge principal -->
+              {% set primer_tipo = item.all_types[0] %}
+              <span class="badge bg-light text-dark me-1">{{ primer_tipo.split('#')[-1] if '#' in primer_tipo else primer_tipo }}</span>
+              <!-- Mostrar un badge indicando que hay más tipos -->
+              <span class="badge bg-secondary" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="También: {{ item.all_types[1:]|join(', ') }}">
+                +{{ item.all_types|length - 1 }} más
+              </span>
+            {% elif item.type %}
+              <!-- Si solo tenemos un tipo, mostrarlo normalmente -->
+              {% set tipo_parts = item.type.split('#') %}
+              <span class="badge bg-light text-dark">{{ tipo_parts[-1] if tipo_parts|length > 1 else item.type }}</span>
+            {% else %}
+              <span class="badge bg-light text-dark">Recurso</span>
+            {% endif %}
           </div>
-          {% else %}
-          <div class="alert alert-warning">
-            <i class="bi bi-exclamation-triangle"></i> 
-            {{ translations['no_dbpedida_results'][current_lang] }}
-          </div>
-          {% endif %}
+          <span class="fw-bold">DBpedia</span>
         </div>
+        
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="{{ url_for('detalle_noticia', uri=item.resource.value, lang=current_lang, keyword=keyword) }}"
+               class="text-decoration-none">
+              {{ item.label.value }}
+            </a>
+          </h4>
+          
+          <p class="card-text">{{ item.abstract.value }}</p>
+          
+          <div class="d-flex justify-content-between align-items-center mt-3">
+            <div>
+              <span class="text-muted-custom small">
+                <i class="bi bi-database"></i> Fuente: DBpedia
+              </span>
+            </div>
+            
+            <div>
+              <a href="{{ url_for('detalle_noticia', uri=item.resource.value, lang=current_lang, keyword=keyword) }}"
+                 class="btn btn-sm btn-outline-primary me-2">
+                <i class="bi bi-info-circle"></i> {{ translations['view_details'][current_lang] }}
+              </a>
+              <a href="{{ item.resource.value }}" 
+                 target="_blank"
+                 class="btn btn-sm btn-outline-primary">
+                <i class="bi bi-box-arrow-up-right"></i> {{ translations['view_on_dbpedia'][current_lang] }}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="alert alert-warning">
+    <i class="bi bi-exclamation-triangle"></i> 
+    {{ translations['no_dbpedida_results'][current_lang] }}
+  </div>
+  {% endif %}
+</div>
       {% endif %}
     </div>
   </div>
