@@ -339,7 +339,7 @@ def search():
             FILTER(BOUND(?titulo) && BOUND(?autor) && STR(?titulo) != "" && STR(?autor) != "")
         }}
         ORDER BY DESC(?fecha)
-        LIMIT 30
+        LIMIT 10
         """
         
         print(f"📋 Ejecutando consulta SPARQL para '{keyword}'")
@@ -588,7 +588,7 @@ def detalle_noticia(uri):
                 ?prop = <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
             )
         }}
-        LIMIT 30
+        LIMIT 10
         """
     else:
         # Consulta para noticia local
@@ -691,7 +691,7 @@ def buscar_por_tipo(tipo):
         OPTIONAL {{ ?noticia untitled-ontology-3:Autor ?autor . }}
         OPTIONAL {{ ?noticia untitled-ontology-3:Fecha_publicacion ?fecha . }}
     }}
-    LIMIT 30
+    LIMIT 10
     """
     
     resultados = []
@@ -754,7 +754,7 @@ def diagnostico():
         FILTER(STRSTARTS(STR(?tipo), "http://www.semanticweb.org/cabez/ontologies/2025/2/untitled-ontology-3#"))
         OPTIONAL { ?noticia untitled-ontology-3:Título|untitled-ontology-3:Titulo ?titulo . }
     }
-    LIMIT 10
+    LIMIT 30
     """
     
     resultados = []

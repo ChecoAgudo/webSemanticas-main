@@ -411,7 +411,7 @@ def search():
             FILTER(BOUND(?titulo) && BOUND(?autor) && STR(?titulo) != "" && STR(?autor) != "")
         }}
         ORDER BY DESC(?fecha)
-        LIMIT 30
+        LIMIT 10
         """
         
         print(f"📋 Ejecutando consulta SPARQL local para '{keywords['for_ontology']}'")
@@ -527,7 +527,7 @@ def search():
                 )
             }}
             GROUP BY ?recurso ?label ?abstract
-            LIMIT 15
+            LIMIT 5
             """
             
             try:
@@ -852,7 +852,7 @@ def buscar_por_tipo(tipo):
         OPTIONAL {{ ?noticia untitled-ontology-3:Ubicacion|untitled-ontology-3:Ubicación ?ubicacion . }}
     }}
     ORDER BY DESC(?fecha)
-    LIMIT 30
+    LIMIT 10
     """
     
     resultados = []

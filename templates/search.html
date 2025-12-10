@@ -108,10 +108,8 @@
                   
                   <div class="d-flex justify-content-between align-items-center mt-3">
                     <div>
-                      <span class="badge bg-info">{{ item.enfoque }}</span>
-                      <span class="badge bg-light text-dark ms-2">{{ item.idioma }}</span>
+                      
                     </div>
-                    
                     <div>
                       <a href="{{ url_for('detalle_noticia', uri=item.uri, lang=current_lang, keyword=keyword) }}"
                          class="btn btn-sm btn-outline-primary">
