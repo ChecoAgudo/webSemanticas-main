@@ -5,6 +5,9 @@ from rdflib.plugins.sparql import prepareQuery
 import os
 import urllib.parse
 from googletrans import Translator
+import tempfile
+import io
+import re
 
 # Configurar SPARQL endpoint de DBpedia (en línea)
 sparql_online = SPARQLWrapper("http://dbpedia.org/sparql")
@@ -33,7 +36,23 @@ def cargar_datos():
             try:
                 print(f"🔄 Intentando cargar: {archivo} como {formato}...")
                 triples_iniciales = len(g)
-                g.parse(archivo, format=formato)
+                try:
+                    g.parse(archivo, format=formato)
+                except Exception as parse_exc:
+                    # Si falla el parseo de Turtle, intentar limpiar caracteres/encoding y reintentar
+                    print(f"❌ Error cargando {archivo}: {parse_exc}")
+                    if formato in ("turtle", "ttl"):
+                        cleaned = sanitize_ttl_file(archivo)
+                        if cleaned:
+                            try:
+                                print(f"🔧 Reintentando con archivo limpiado: {cleaned}")
+                                g.parse(cleaned, format=formato)
+                            except Exception as e2:
+                                print(f"❌ Reintento fallido para {archivo}: {e2}")
+                        else:
+                            print(f"❌ No se pudo generar archivo limpiado para {archivo}")
+                    else:
+                        raise
                 triples_archivo = len(g) - triples_iniciales
                 total_triples = len(g)
                 print(f"✅ {archivo}: {triples_archivo} triples cargados")
@@ -77,6 +96,37 @@ def cargar_datos():
     except Exception as e:
         print(f"   ❌ Error en consulta de diagnóstico: {e}")
 
+def sanitize_ttl_file(path_in):
+    """Intenta limpiar problemas de encoding/control-chars en un archivo TTL.
+    Devuelve la ruta al archivo limpio o None si falla.
+    """
+    try:
+        with open(path_in, 'rb') as f:
+            raw = f.read()
+
+        # Decodificar reemplazando bytes inválidos
+        text = raw.decode('utf-8', errors='replace')
+
+        # Normalizar saltos de línea
+        text = text.replace('\r\n', '\n')
+
+        # Eliminar caracteres de control no imprimibles (excepto tab, LF, CR)
+        text = re.sub(r"[\x00-\x08\x0B\x0C\x0E-\x1F]", "", text)
+
+        # Reemplazar secuencias de bytes visibles que hayan quedado como literal
+        # p.ej. "b'..." que podrían aparecer por un mal volcado
+        text = re.sub(r"\\bb'", "", text)
+
+        # Escribir archivo temporal limpio
+        fd, cleaned_path = tempfile.mkstemp(suffix='.ttl', prefix='cleaned_')
+        with io.open(fd, 'w', encoding='utf-8') as fout:
+            fout.write(text)
+
+        print(f"✅ Archivo limpiado creado: {cleaned_path}")
+        return cleaned_path
+    except Exception as e:
+        print(f"❌ Falló limpieza de {path_in}: {e}")
+        return None
 # Ejecutar carga al inicio
 cargar_datos()
 
