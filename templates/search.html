@@ -148,7 +148,13 @@
             {% if item.get('all_types') and item.all_types|length > 1 %}
               <!-- Mostrar el primer tipo como badge principal -->
               {% set primer_tipo = item.all_types[0] %}
-              <span class="badge bg-light text-dark me-1">{{ primer_tipo.split('#')[-1] if '#' in primer_tipo else primer_tipo }}</span>
+              <!-- Limpiar el tipo: eliminar "Category:" y reemplazar guiones bajos -->
+              {% set tipo_limpio = primer_tipo.split('#')[-1] if '#' in primer_tipo else primer_tipo %}
+              {% if tipo_limpio.startswith('Category:') %}
+                {% set tipo_limpio = tipo_limpio[9:] %}
+              {% endif %}
+              {% set tipo_limpio = tipo_limpio.replace('_', ' ') %}
+              <span class="badge bg-light text-dark me-1">{{ tipo_limpio[:30] }}{% if tipo_limpio|length > 30 %}...{% endif %}</span>
               <!-- Mostrar un badge indicando que hay más tipos -->
               <span class="badge bg-secondary" 
                     data-bs-toggle="tooltip" 
@@ -159,7 +165,12 @@
             {% elif item.type %}
               <!-- Si solo tenemos un tipo, mostrarlo normalmente -->
               {% set tipo_parts = item.type.split('#') %}
-              <span class="badge bg-light text-dark">{{ tipo_parts[-1] if tipo_parts|length > 1 else item.type }}</span>
+              {% set tipo_limpio = tipo_parts[-1] if tipo_parts|length > 1 else item.type %}
+              {% if tipo_limpio.startswith('Category:') %}
+                {% set tipo_limpio = tipo_limpio[9:] %}
+              {% endif %}
+              {% set tipo_limpio = tipo_limpio.replace('_', ' ') %}
+              <span class="badge bg-light text-dark">{{ tipo_limpio[:30] }}{% if tipo_limpio|length > 30 %}...{% endif %}</span>
             {% else %}
               <span class="badge bg-light text-dark">Recurso</span>
             {% endif %}
@@ -179,8 +190,9 @@
           
           <div class="d-flex justify-content-between align-items-center mt-3">
             <div>
+              <!-- CORREGIDO: Ahora usa la traducción -->
               <span class="text-muted-custom small">
-                <i class="bi bi-database"></i> Fuente: DBpedia
+                <i class="bi bi-database"></i> {{ translations['fuente'][current_lang] }}: DBpedia
               </span>
             </div>
             
@@ -212,4 +224,14 @@
     </div>
   </div>
 </div>
+
+<script>
+// Inicializar tooltips de Bootstrap
+document.addEventListener('DOMContentLoaded', function() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+});
+</script>
 {% endblock %}
