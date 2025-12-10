@@ -1,0 +1,154 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix dbr: <http://dbpedia.org/resource/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# ==========================================
+#  ACTUALIDAD BOLIVIA (POLÍTICA Y ECONOMÍA)
+# ==========================================
+
+dbr:Luis_Arce
+    a dbo:Person ;
+    rdfs:label "Luis Arce"@es, "Luis Arce"@en, "Luis Arce"@pt ;
+    dbo:abstract "Luis Alberto Arce Catacora es el actual presidente del Estado Plurinacional de Bolivia. Su gestión reciente se ha centrado en la industrialización del litio y el manejo de la crisis de divisas en el país."@es, "Luis Arce is the current President of Bolivia, focusing on lithium industrialization."@en, "Luis Arce é o atual presidente da Bolívia."@pt .
+
+dbr:Censo_Bolivia_2024
+    a dbo:Event ;
+    rdfs:label "Censo de Población y Vivienda 2024"@es, "2024 Bolivia Censo"@en ;
+    dbo:abstract "El Censo de Población y Vivienda 2024 en Bolivia es un evento estadístico crucial realizado el 23 de marzo. Los resultados definirán la redistribución de escaños parlamentarios y recursos económicos para los departamentos."@es .
+
+dbr:Litio_en_Bolivia
+    a dbo:Resource ;
+    rdfs:label "Litio en Bolivia"@es, "Lithium in Bolivia"@en ;
+    dbo:abstract "Bolivia posee una de las mayores reservas de litio del mundo en el Salar de Uyuni. En 2024, el gobierno firmó nuevos convenios con empresas chinas y rusas para acelerar la extracción directa de litio (EDL)."@es .
+
+dbr:Incendios_forestales_en_Bolivia_de_2024
+    a dbo:Event ;
+    rdfs:label "Incendios forestales en Bolivia 2024"@es, "2024 Bolivia Wildfires"@en ;
+    dbo:abstract "Los incendios forestales en Bolivia han devastado millones de hectáreas en la Amazonía y la Chiquitania, provocando alertas sanitarias por la mala calidad del aire en ciudades como Santa Cruz y La Paz."@es .
+
+dbr:Economia_de_Bolivia
+    a dbo:Concept ;
+    rdfs:label "Economía de Bolivia"@es, "Economy of Bolivia"@en ;
+    dbo:abstract "La economía de Bolivia enfrenta desafíos actuales relacionados con la escasez de dólares, la subvención a los hidrocarburos y la búsqueda de nuevos mercados para el gas natural y el litio."@es .
+
+# ==========================================
+#  MEDIOS DE COMUNICACIÓN (REVISTAS Y DIARIOS)
+# ==========================================
+
+dbr:El_Deber
+    a dbo:Newspaper ;
+    rdfs:label "El Deber"@es ;
+    dbo:abstract "El Deber es el diario de mayor circulación en Santa Cruz, Bolivia. Cubre noticias locales, nacionales e internacionales, siendo una referencia principal en el oriente boliviano."@es .
+
+dbr:Los_Tiempos
+    a dbo:Newspaper ;
+    rdfs:label "Los Tiempos"@es ;
+    dbo:abstract "Los Tiempos es un periódico tradicional de Cochabamba, fundado en 1943. Se especializa en noticias del valle y análisis político nacional."@es .
+
+dbr:La_Razon_Bolivia
+    a dbo:Newspaper ;
+    rdfs:label "La Razón (Bolivia)"@es ;
+    dbo:abstract "La Razón es un periódico de circulación nacional con sede en La Paz. Es conocido por su cobertura detallada de la política gubernamental y la economía."@es .
+
+dbr:National_Geographic
+    a dbo:Magazine ;
+    rdfs:label "National Geographic"@es, "National Geographic"@en ;
+    dbo:abstract "National Geographic es una revista y medio global conocido por sus reportajes sobre ciencia, geografía, historia y cultura mundial. Recientemente ha publicado artículos sobre la biodiversidad del Madidi en Bolivia."@es .
+
+dbr:Vogue
+    a dbo:Magazine ;
+    rdfs:label "Vogue"@es, "Vogue"@en ;
+    dbo:abstract "Vogue es una revista estadounidense de moda y estilo de vida. Es considerada la revista de moda más influyente del mundo, cubriendo tendencias, belleza y cultura pop."@es .
+
+dbr:Time_Magazine
+    a dbo:Magazine ;
+    rdfs:label "Time"@es, "Time"@en ;
+    dbo:abstract "Time es una revista de información general publicada semanalmente en los Estados Unidos. Es famosa por su selección anual de la 'Persona del Año'."@es .
+
+# ==========================================
+#  DEPORTES (FÚTBOL Y OTROS)
+# ==========================================
+
+dbr:Seleccion_de_futbol_de_Bolivia
+    a dbo:SportsTeam ;
+    rdfs:label "Selección de fútbol de Bolivia"@es, "Bolivia national football team"@en, "Seleção Boliviana de Futebol"@pt ;
+    dbo:abstract "La selección de fútbol de Bolivia, conocida como 'La Verde', compite en las Eliminatorias Sudamericanas. Sus partidos de local se juegan principalmente en el Estadio Hernando Siles de La Paz y recientemente en El Alto."@es .
+
+dbr:Club_Bolivar
+    a dbo:SoccerClub ;
+    rdfs:label "Club Bolívar"@es ;
+    dbo:abstract "El Club Bolívar es uno de los equipos más exitosos de Bolivia. Con sede en La Paz, participa regularmente en la Copa Libertadores y busca su centenario con grandes proyectos de infraestructura."@es .
+
+dbr:Club_The_Strongest
+    a dbo:SoccerClub ;
+    rdfs:label "The Strongest"@es ;
+    dbo:abstract "The Strongest es el decano del fútbol boliviano y el eterno rival de Bolívar. Es conocido por su garra y su historia en la liga profesional boliviana."@es .
+
+dbr:Copa_America_2024
+    a dbo:SoccerTournament ;
+    rdfs:label "Copa América 2024"@es, "2024 Copa América"@en ;
+    dbo:abstract "La Copa América 2024 fue el torneo de selecciones más importante del continente, celebrado en Estados Unidos, reuniendo a equipos de CONMEBOL y CONCACAF."@es .
+
+dbr:Hector_Garibay
+    a dbo:Athlete ;
+    rdfs:label "Héctor Garibay"@es ;
+    dbo:abstract "Héctor Garibay es un fondista boliviano que ha ganado notoriedad internacional tras ganar la Maratón de la Ciudad de México y clasificar a los Juegos Olímpicos de París 2024."@es .
+
+# ==========================================
+#  TECNOLOGÍA Y CIENCIA
+# ==========================================
+
+dbr:Inteligencia_artificial_generativa
+    a dbo:Concept ;
+    rdfs:label "Inteligencia artificial generativa"@es, "Generative artificial intelligence"@en ;
+    dbo:abstract "La IA generativa es un tipo de inteligencia artificial capaz de generar texto, imágenes u otros medios. Herramientas como ChatGPT y Gemini están revolucionando la creación de contenido en 2024."@es .
+
+dbr:OpenAI
+    a dbo:Company ;
+    rdfs:label "OpenAI"@es ;
+    dbo:abstract "OpenAI es un laboratorio de investigación de inteligencia artificial estadounidense. Es el creador de ChatGPT y DALL-E, liderando la carrera actual en el desarrollo de IA avanzada."@es .
+
+dbr:Cambio_climatico
+    a dbo:Concept ;
+    rdfs:label "Cambio climático"@es, "Climate change"@en, "Mudança do clima"@pt ;
+    dbo:abstract "El cambio climático se refiere a los cambios a largo plazo de las temperaturas y los patrones climáticos. En 2024, el mundo experimentó récords de temperatura global."@es .
+
+# ==========================================
+#  LUGARES DE BOLIVIA (TURISMO)
+# ==========================================
+
+dbr:Salar_de_Uyuni
+    a dbo:Place ;
+    rdfs:label "Salar de Uyuni"@es, "Salar de Uyuni"@en ;
+    dbo:abstract "El Salar de Uyuni es el mayor desierto de sal continuo y alto del mundo. Es el principal destino turístico de Bolivia y alberga grandes reservas de litio."@es .
+
+dbr:Lago_Titicaca
+    a dbo:Place ;
+    rdfs:label "Lago Titicaca"@es, "Lake Titicaca"@en ;
+    dbo:abstract "El Lago Titicaca es el lago navegable más alto del mundo, compartido entre Bolivia y Perú. Es un sitio de gran importancia cultural y turística, cuna de la civilización inca."@es .
+
+dbr:Santa_Cruz_de_la_Sierra
+    a dbo:City ;
+    rdfs:label "Santa Cruz de la Sierra"@es ;
+    dbo:abstract "Santa Cruz de la Sierra es la ciudad más poblada y el centro económico de Bolivia. Se caracteriza por su rápido crecimiento urbano y clima tropical."@es .
+
+dbr:La_Paz
+    a dbo:City ;
+    rdfs:label "La Paz"@es, "La Paz"@en ;
+    dbo:abstract "La Paz es la sede de gobierno de Bolivia. Famosa por su topografía montañosa, su red de teleféricos (Mi Teleférico) y su altura, es una metrópoli andina única."@es .
+
+# ==========================================
+#  INTERNACIONAL (CONTEXTO LATINOAMÉRICA)
+# ==========================================
+
+dbr:Javier_Milei
+    a dbo:Person ;
+    rdfs:label "Javier Milei"@es ;
+    dbo:abstract "Javier Milei es el actual presidente de Argentina. Conocido por sus políticas económicas libertarias y su estilo disruptivo, ha generado gran atención mediática global."@es .
+
+dbr:Luiz_Inacio_Lula_da_Silva
+    a dbo:Person ;
+    rdfs:label "Lula da Silva"@es, "Lula da Silva"@pt ;
+    dbo:abstract "Luiz Inácio Lula da Silva es el presidente de Brasil. Su mandato actual se enfoca en el posicionamiento de Brasil en el escenario global y la protección de la Amazonía."@es .
